@@ -72,6 +72,7 @@ class StudentController extends Controller
     $student->update([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
+        'age' => $request->input('age'),
         'gender' => $request->input('gender'),
         'img' => $imagePath,
         'track' => $request->input('track'),
@@ -84,7 +85,13 @@ class StudentController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-        Student::destroy($id);
+        $student = Student::findOrFail($id);
+        $logoPath = public_path($student->img);
+
+        if (file_exists($logoPath)) {
+            unlink($logoPath);
+        }
+        $student->delete();
         return redirect('student')->with('flash_message', 'Student deleted!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Track;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TrackController extends Controller
 {
@@ -14,7 +15,7 @@ class TrackController extends Controller
     public function index()
     {
         $tracks = Track::all();
-        return view('tracks.tracksData',compact("tracks"));
+        return view('tracks.tracksData', compact("tracks"));
     }
 
     /**
@@ -49,13 +50,13 @@ class TrackController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) : View
+    public function show(string $id): View
     {
         $track = Track::find($id);
 
-    if (!$track) {
-        abort(404, 'Track not found');
-    }
+        if (!$track) {
+            abort(404, 'Track not found');
+        }
         return view('tracks.show')->with('track', $track);
     }
 
@@ -74,19 +75,19 @@ class TrackController extends Controller
     public function update(Request $request, string $id)
     {
         $track = Track::findOrFail($id);
-    $imagePath = $track->logo;
-    if ($request->hasFile('logo')) {
-        $image = $request->file('logo');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images/tracks'), $imageName);
-        $imagePath = 'images/tracks' . $imageName;
-    }
-    $track->update([
-        'name' => $request->input('name'),
-        'about' => $request->input('about'),
-        'logo' => $imagePath
-    ]);
-    return redirect('tracks')->with('flash_message', 'student Updated!');
+        $imagePath = $track->logo;
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/tracks'), $imageName);
+            $imagePath = 'images/tracks' . $imageName;
+        }
+        $track->update([
+            'name' => $request->input('name'),
+            'about' => $request->input('about'),
+            'logo' => $imagePath
+        ]);
+        return redirect('tracks')->with('flash_message', 'student Updated!');
     }
 
     /**
@@ -95,6 +96,11 @@ class TrackController extends Controller
     public function destroy(string $id)
     {
         $track = Track::findOrFail($id);
+        $logoPath = public_path($track->logo);
+
+        if (file_exists($logoPath)) {
+            unlink($logoPath);
+        }
         $track->delete();
         return to_route('tracks.index');
     }

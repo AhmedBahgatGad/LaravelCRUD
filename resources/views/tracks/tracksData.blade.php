@@ -4,7 +4,7 @@
 <div class="row">
 @foreach ($tracks as $track)
 <div class="col-md-3">
-<div class="card bg-dark border border-rounded text-white">
+<div class="card bg-dark my-2 border border-rounded text-white">
 <div style="height: 250px; overflow:hidden;"><img src="{{asset($track->logo)}}" class="card-img-top w-100" alt="..."></div>
     <div class="card-body">
         <h5 class="card-title">{{$track->name}}</h5>

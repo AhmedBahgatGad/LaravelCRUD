@@ -13,6 +13,8 @@
         <input type="text" name="name" id="name" value="{{$students->name}}" class="form-control"></br>
         <label>email</label></br>
         <input type="text" name="email" id="email" value="{{$students->email}}" class="form-control"></br>
+        <label>Age</label></br>
+        <input type="number" name="age" id="age" value="{{$students->age}}" class="form-control"></br>
         <label>Gender</label></br>
         <input type="text" name="gender" id="gender" value="{{$students->gender}}" class="form-control"></br>
         <label>img</label></br>
