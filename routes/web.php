@@ -3,6 +3,8 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TrackController;
+use App\Http\Resources\StudentResource;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,7 @@ Route::put('/tracks/{id}', [TrackController::class, 'update'])->name('track.upda
 Route::delete('tracks/{id}',[TrackController::class,'destroy'])->name('track.destroy');
 
 Route::resource('/course',CourseController::class);
+
+Route::get('/student/{id}', function (string $id) {
+    return new StudentResource(Student::findOrFail($id));
+});
