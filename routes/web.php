@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,4 @@ Route::get('tracks/{id}/edit',[TrackController::class,'edit'])->name('track.edit
 Route::put('/tracks/{id}', [TrackController::class, 'update'])->name('track.update');
 Route::delete('tracks/{id}',[TrackController::class,'destroy'])->name('track.destroy');
 
+Route::resource('/course',CourseController::class);

@@ -23,10 +23,16 @@
           <a class="nav-link active" aria-current="page" href="{{url('/tracks/')}}">All Tracks</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url('/course/')}}">All Courses</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{url('/student/create')}}">Add Student</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{url('/tracks/create')}}">Add Track</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/course/create')}}">Add Course</a>
         </li>
       </ul>
     </div>
